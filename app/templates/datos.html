@@ -1,0 +1,80 @@
+{% extends 'index.html' %}
+
+{% block title %}Datos de Productividad{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Tabla de Productividad</h1>
+
+    <!-- Formulario de filtros -->
+    <form method="POST" action="{{ url_for('main.datos') }}" class="row g-3">
+        <div class="col-md-3">
+            <label for="municipio" class="form-label">Municipio:</label>
+            <select name="municipio" id="municipio" class="form-select">
+                <option value="">Todos</option>
+                {% for municipio in municipios_unicos %}
+                    <option value="{{ municipio }}">{{ municipio }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="unidad" class="form-label">Unidad:</label>
+            <select name="unidad" id="unidad" class="form-select">
+                <option value="">Todas</option>
+                {% for unidad in unidades_unicas %}
+                    <option value="{{ unidad }}">{{ unidad }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="año" class="form-label">Año:</label>
+            <select name="año" id="año" class="form-select">
+                <option value="">Todos</option>
+                {% for año in años_unicos %}
+                    <option value="{{ año }}">{{ año }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-3">
+            <label for="periodo" class="form-label">Periodo:</label>
+            <select name="periodo" id="periodo" class="form-select">
+                <option value="ninguno">Sin periodo</option>
+                <option value="bimestres">Bimestral</option>
+                <option value="semestres">Semestral</option>
+            </select>
+        </div>
+
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        </div>
+    </form>
+
+    <!-- Tabla de datos transformados -->
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-bordered">
+            <thead class="table-dark">
+                <tr>
+                    <th>Clues</th>
+                    <th>Unidad</th>
+                    <th>Año</th>
+                    {% for mes in meses %}
+                        <th>{{ mes[:3] }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for fila in datos %}
+                <tr>
+                    <td>{{ fila['clues'] }}</td>
+                    <td>{{ fila['unidad'] }}</td>
+                    <td>{{ fila['año'] }}</td>
+                    {% for mes in meses %}
+                        <td>{{ fila.get(mes, 'N/A') }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

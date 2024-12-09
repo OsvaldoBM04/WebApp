@@ -1,0 +1,23 @@
+
+# Ignorar archivos de entorno
+.env
+
+# Ignorar otros archivos relacionados con contraseñas o configuraciones locales
+*.env.*
+
+# Ignorar configuraciones locales de IDE
+.vscode/
+.idea/
+
+# Ignorar archivos de caché y compilación
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignorar carpetas de entornos virtuales
+venv/
+env/
+
+# Ignorar datos específicos del sistema operativo
+.DS_Store
+Thumbs.db
